@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -64,6 +65,7 @@ class MainActivity : ComponentActivity() {
 fun TampilLayout (
     modifier: Modifier = Modifier) {
     Card (modifier = modifier, elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)) {
+        Text(text = "Create Your Account", fontSize = 30.sp,  fontWeight = FontWeight.Bold)
         Column(verticalArrangement = Arrangement.spacedBy(10.dp) ,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(20.dp)) {
