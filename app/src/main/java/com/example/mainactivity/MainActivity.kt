@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
 fun TampilLayout (
     modifier: Modifier = Modifier) {
     Card (modifier = modifier, elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)) {
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp),
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp) ,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(20.dp)) {
             TampilForm()
@@ -131,7 +131,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel.BacaData(textNama, textTlp, dataForm.sex, textEmail, textAlamat)
+            cobaViewModel.BacaData(textNama, textTlp, dataForm.sex, textEmail, dataForm.status, textAlamat)
 
         })
     {
@@ -154,6 +154,30 @@ fun SelectJK(options: List<String>,onSelectionChanged: (String) -> Unit = {}) {
 
     Row(modifier = Modifier.padding(16.dp)) {
         options.forEach { item ->
+            Row(
+                modifier = Modifier.selectable(selected = selectedValue == item, onClick = {
+                    selectedValue = item
+                    onSelectionChanged(item)
+                }
+                ),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                RadioButton(selected = selectedValue == item, onClick = { selectedValue = item
+                onSelectionChanged(item)
+                }
+                )
+                Text(item)
+            }
+        }
+    }
+}
+
+@Composable
+fun SelectST(options: List<String>,onSelectionChanged: (String) -> Unit = {}) {
+    var selectedValue by rememberSaveable { mutableStateOf("") }
+
+    Row(modifier = Modifier.padding(16.dp)) {
+        options.forEach{ item ->
             Row(
                 modifier = Modifier.selectable(selected = selectedValue == item, onClick = {
                     selectedValue = item
