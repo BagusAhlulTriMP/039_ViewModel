@@ -135,7 +135,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
 
         })
     {
-        Text(text = stringResource(R.string.submit),
+        Text(text = stringResource(R.string.register),
             fontSize = 16.sp)
     }
     Spacer(modifier = Modifier.height(100.dp))
@@ -152,7 +152,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
 fun SelectJK(options: List<String>,onSelectionChanged: (String) -> Unit = {}) {
     var selectedValue by rememberSaveable { mutableStateOf("") }
 
-    Column(modifier = Modifier.padding(16.dp)) {
+    Row(modifier = Modifier.padding(16.dp)) {
         options.forEach { item ->
             Row(
                 modifier = Modifier.selectable(selected = selectedValue == item, onClick = {
