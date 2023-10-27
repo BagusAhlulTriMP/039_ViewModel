@@ -78,6 +78,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
 
     var textNama by remember { mutableStateOf("") }
     var textTlp by remember { mutableStateOf("") }
+    var textEmail by remember { mutableStateOf("") }
     var textAlamat by remember { mutableStateOf("") }
 
     val context = LocalContext.current
@@ -106,6 +107,15 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
         }
     )
     OutlinedTextField(
+        value = textEmail,
+        singleLine = true,
+        shape = MaterialTheme.shapes.large,
+        modifier =  Modifier.fillMaxWidth(),
+        label = { Text(text = "Email") },
+        onValueChange = {
+            textEmail = it
+        })
+    OutlinedTextField(
         value = textAlamat,
         singleLine = true,
         shape = MaterialTheme.shapes.large,
@@ -121,7 +131,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel.BacaData(textNama, textTlp, dataForm.sex, textAlamat)
+            cobaViewModel.BacaData(textNama, textTlp, dataForm.sex, textEmail, textAlamat)
 
         })
     {
@@ -133,6 +143,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
         namanya = cobaViewModel.namaUsr,
         telponnya = cobaViewModel.noTlp ,
         jenisnya = cobaViewModel.jenisKl,
+        emailnya = cobaViewModel.email,
         alamatnya = cobaViewModel.alamat)
 
 }
@@ -162,13 +173,14 @@ fun SelectJK(options: List<String>,onSelectionChanged: (String) -> Unit = {}) {
 }
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String, jenisnya: String, alamatnya: String) {
+fun TextHasil(namanya: String, telponnya: String, jenisnya: String, emailnya: String,  alamatnya: String) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp),modifier = Modifier.fillMaxWidth()) {
         Text(text = "Nama : " + namanya, modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp))
         Text(text = "Telepon : " + telponnya, modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
         Text(text = "Jenis kelamin : " + jenisnya, modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
+        Text(text = "Email : " + emailnya, modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
         Text(text = "Alamat : " + alamatnya, modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
         )
     }
