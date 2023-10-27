@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mainactivity.Data.DataForm
+import com.example.mainactivity.Data.DataSource
 import com.example.mainactivity.Data.DataSource.jenis
 import com.example.mainactivity.ui.theme.MainActivityTheme
 
@@ -111,6 +112,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     OutlinedTextField(
         value = textEmail,
         singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         shape = MaterialTheme.shapes.large,
         modifier =  Modifier.fillMaxWidth(),
         label = { Text(text = "Email") },
@@ -126,10 +128,15 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
         onValueChange = {
             textAlamat = it
         })
+    
     SelectJK(
         options = jenis.map { id -> context.resources.getString(id) },
         onSelectionChanged = { cobaViewModel.setJenis(it) }
     )
+    SelectST(options = DataSource.status.map { id -> context.resources.getString(id) },
+        onSelectionChanged = { cobaViewModel.setstatus(it) }
+    )
+
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
@@ -146,6 +153,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
         telponnya = cobaViewModel.noTlp ,
         jenisnya = cobaViewModel.jenisKl,
         emailnya = cobaViewModel.email,
+        statusnya = cobaViewModel.status,
         alamatnya = cobaViewModel.alamat)
 
 }
@@ -199,7 +207,7 @@ fun SelectST(options: List<String>,onSelectionChanged: (String) -> Unit = {}) {
 }
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String, jenisnya: String, emailnya: String,  alamatnya: String) {
+fun TextHasil(namanya: String, telponnya: String, jenisnya: String, emailnya: String,statusnya: String,  alamatnya: String) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp),modifier = Modifier.fillMaxWidth()) {
@@ -207,6 +215,7 @@ fun TextHasil(namanya: String, telponnya: String, jenisnya: String, emailnya: St
         Text(text = "Telepon : " + telponnya, modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
         Text(text = "Jenis kelamin : " + jenisnya, modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
         Text(text = "Email : " + emailnya, modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
+        Text(text = "Status " + statusnya, modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp))
         Text(text = "Alamat : " + alamatnya, modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
         )
     }
